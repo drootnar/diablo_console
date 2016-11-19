@@ -1,6 +1,6 @@
 import curses
 from .view import Canvas
-from .views.windows import Window, Separator
+from .views.windows import *
 
 __all__ = ['GameLoop', 'GameState']
 
@@ -43,6 +43,34 @@ class GameLoop:
                     Separator(window, align='bottom')
                     window.fill()
                     self.state.focus = GameState.FOCUS_WINDOW
+                elif x == ord('1'):
+                    window = self.canvas.stack.pop()
+                    window.destroy()
+                    window = Window(self.canvas, width=20, height=8, title='Window')
+                    Area(window, align='up', size=3)
+                    window.fill()
+                    self.state.focus = GameState.FOCUS_WINDOW
+                elif x == ord('2'):
+                    window = self.canvas.stack.pop()
+                    window.destroy()
+                    window = Window(self.canvas, width=20, height=8, title='Window')
+                    Area(window, align='right', size=3)
+                    window.fill()
+                    self.state.focus = GameState.FOCUS_WINDOW
+                elif x == ord('3'):
+                    window = self.canvas.stack.pop()
+                    window.destroy()
+                    window = Window(self.canvas, width=20, height=8, title='Window')
+                    Area(window, align='bottom', size=3)
+                    window.fill()
+                    self.state.focus = GameState.FOCUS_WINDOW
+                elif x == ord('4'):
+                    window = self.canvas.stack.pop()
+                    window.destroy()
+                    window = Window(self.canvas, width=20, height=8, title='Window')
+                    Area(window, align='left', size=3)
+                    window.fill()
+                    self.state.focus = GameState.FOCUS_WINDOW
                 elif x == ord('q'):
                     window = self.canvas.stack.pop()
                     window.destroy()
@@ -67,9 +95,11 @@ class GameLoop:
                     self.state.focus = GameState.FOCUS_WINDOW
                 elif x == ord('2'):
                     window = Window(self.canvas, width=20, height=20, title='Window')
+                    area = Area(window, align="left", size=10)
                     Separator(window, align='left')
-                    Separator(window, align='right')
-                    window.fill()
+                    area2 = Area(window, align="left", size=7)
+                    area.fill()
+                    area2.display('Przykładowy tekst')
                     self.state.focus = GameState.FOCUS_WINDOW
                 elif x == ord('q'):
                     window = TextWindow(self.canvas, width=20, height=3, text='Dziękuję za grę')
