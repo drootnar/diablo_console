@@ -39,6 +39,7 @@ class Window:
         self.height = kwargs.get('height', 10)
         self.x = kwargs.get('x', self._center_x())
         self.y = kwargs.get('y', self._center_y())
+        self.title = kwargs.get('title')
         self.create()
 
     def _center_x(self):
@@ -52,6 +53,8 @@ class Window:
     def create(self):
         self.obj = curses.newwin(self.height, self.width, self.y, self.x)
         self.obj.border(0)
+        if self.title:
+            self.obj.addstr(0, 1, '[{}]'.format(self.title[:self.width-4]))
         self.obj.refresh()
 
     def destroy(self):

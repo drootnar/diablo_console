@@ -12,7 +12,7 @@ class GameLoop:
 
     def run(self):
         x = None
-        while x != ord('q'):
+        while True:
             x = self.canvas.input()
             if self.state.focus == GameState.FOCUS_WINDOW:
                 if x == ord('o'):
@@ -42,7 +42,9 @@ class GameLoop:
                     self.canvas.set_player
                 elif x == ord('p'):
                     pad = curses.newpad(5, 5)
-
+                elif x == ord('q'):
+                    window = TextWindow(self.canvas, width=20, height=3, text='Dziękuję za grę')
+                    break
                 else:
                     self.canvas.paint(3, 3, "Inne")
         self.canvas.close()
