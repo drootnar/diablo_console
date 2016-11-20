@@ -1,6 +1,6 @@
 import curses
-from .view import Canvas
 from .views.windows import *
+from .views.board import Canvas
 
 __all__ = ['GameLoop', 'GameState']
 
@@ -76,7 +76,6 @@ class GameLoop:
                     window.destroy()
                     self.state.focus = GameState.FOCUS_MAP
             elif self.state.focus == GameState.FOCUS_MAP:
-                self.canvas.render(self.state)
                 if x == ord('w'):
                     self.state.y = max(self.state.y - 1, 0)
                     self.canvas.set_player(self.state)
@@ -106,6 +105,7 @@ class GameLoop:
                     break
                 else:
                     self.canvas.paint(3, 3, "Inne")
+            self.canvas.move(0, 0)
         self.canvas.close()
 
 class GameState:

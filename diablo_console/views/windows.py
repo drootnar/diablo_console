@@ -22,11 +22,11 @@ class Window:
         self.create()
 
     def _center_x(self):
-        (parent_y, parent_x) = self.canvas.s.getmaxyx()
+        (parent_y, parent_x) = self.canvas.max_y, self.canvas.max_x
         return int((parent_x / 2) - (self.width / 2))
 
     def _center_y(self):
-        (parent_y, parent_x) = self.canvas.s.getmaxyx()
+        (parent_y, parent_x) = self.canvas.max_y, self.canvas.max_x
         return int((parent_y / 2) - (self.height / 2))
 
     def create(self):
