@@ -3,7 +3,7 @@ import curses
 
 from ..const import *
 
-__all__ = ['Window', 'Area', 'Separator', 'ButtonWindow']
+__all__ = ['Window', 'Area', 'Separator', 'ButtonWindow', 'TextWindow']
 
 
 class Window:
@@ -76,6 +76,13 @@ class ButtonWindow(Window):
             x += offset + 1
         self.obj.refresh()
 
+
+class TextWindow(ButtonWindow):
+    def __init__(self, *args, **kwargs):
+        super(TextWindow, self).__init__(*args, **kwargs)
+        self.text = Area(self, align='up', size=self.height-4)
+
+
 class Area:
     def __init__(self, window, align, size):
         self.window = window
@@ -109,13 +116,14 @@ class Area:
 
     def fill(self):
         for y in range(0, self.height-1):
-            self.obj.addstr(y, 0, ' '*(self.width), C_FILL)
-        self.obj.addstr(self.height-1, 0, ' '*(self.width-1), C_FILL)
+            self.obj.addstr(y, 0, ' '*(self.width), C_FILL_YELLOW)
+        self.obj.addstr(self.height-1, 0, ' '*(self.width-1), C_FILL_YELLOW)
         self.obj.refresh()
 
     def display(self, text):
         for line_no, i in enumerate(range(0, len(text), self.width)):
-            if line_no + 1 > self.height + 1:
+            if line_no == self.height -1:
+                self.obj.addnstr(line_no, 0, text[i:i+self.width], self.width-1)
                 break
             else:
                 self.obj.addnstr(line_no, 0, text[i:i+self.width], self.width)

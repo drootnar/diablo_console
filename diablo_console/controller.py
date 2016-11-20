@@ -111,7 +111,11 @@ class GameLoop:
                     window.add_button(Button(window, 'o', 'ok', color=C_OK))
                     self.state.focus = GameState.FOCUS_WINDOW
                 elif x == ord('q'):
-                    window = TextWindow(self.canvas, width=20, height=3, text='Dziękuję za grę')
+                    window = TextWindow(self.canvas, width=30, height=6, title='Zakończenie gry')
+                    window.add_button(Button(window, 'o', 'OK'))
+                    window.text.display('Granie zostanie ukończone.  Utracisz wszystkie postępy.')
+                    window.fill()
+                    self.state.focus = GameState.FOCUS_WINDOW
                     break
                 else:
                     self.canvas.paint(3, 3, "Inne")
