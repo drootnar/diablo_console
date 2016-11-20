@@ -33,7 +33,7 @@ class Window:
         self.obj = curses.newwin(self.height, self.width, self.y, self.x)
         self.obj.border(0)
         if self.title:
-            self.obj.addstr(0, 1, '[{}]'.format(self.title[:self.width-4]), C_GREEN_BLACK)
+            self.obj.addstr(0, 1, '[{}]'.format(self.title[:self.width-4]), C_CYAN)
         self.obj.refresh()
 
     def destroy(self):
@@ -42,7 +42,7 @@ class Window:
 
     def fill(self):
         for y in range(self.free_space['min_y'], self.free_space['max_y'] + 1):
-            self.obj.addstr(y, self.free_space['min_x'], ' '*(self.free_space['max_x'] - self.free_space['min_x'] + 1), C_FILL)
+            self.obj.addstr(y, self.free_space['min_x'], ' '*(self.free_space['max_x'] - self.free_space['min_x'] + 1), C_FILL_MAGENTA)
         self.obj.refresh()
 
     def change_free_space(self, action='inc', **kwargs):
