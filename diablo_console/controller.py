@@ -100,6 +100,9 @@ class GameLoop:
                     area.fill()
                     area2.display('Przykładowy tekst')
                     self.state.focus = GameState.FOCUS_WINDOW
+                elif x == ord('3'):
+                    window = ButtonWindow(self.canvas, width=60, height=20, title='ButtonWindow')
+                    self.state.focus = GameState.FOCUS_WINDOW
                 elif x == ord('q'):
                     window = TextWindow(self.canvas, width=20, height=3, text='Dziękuję za grę')
                     break

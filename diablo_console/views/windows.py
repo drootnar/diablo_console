@@ -3,7 +3,7 @@ import curses
 
 from ..const import *
 
-__all__ = ['Window', 'Area', 'Separator']
+__all__ = ['Window', 'Area', 'Separator', 'ButtonWindow']
 
 
 class Window:
@@ -59,6 +59,12 @@ class Window:
         if 'max_y' in kwargs:
             self.free_space['max_y'] = actions[action](self.free_space['max_y'], kwargs['max_y'])
 
+
+class ButtonWindow(Window):
+    def __init__(self, *args, **kwargs):
+        super(ButtonWindow, self).__init__(*args, **kwargs)
+        self.buttons = Area(window=self, align='bottom', size=1)
+        separator = Separator(self, align='botttom')
 
 class Area:
     def __init__(self, window, align, size):
