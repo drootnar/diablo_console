@@ -23,3 +23,9 @@ C_DANGER = curses.color_pair(15)
 C_WARN = curses.color_pair(16)
 C_OK = curses.color_pair(17)
 C_INFO = curses.color_pair(18)
+C_BUTTON = curses.color_pair(19)
+
+C_BOLD = curses.A_BOLD
+C_NORM = curses.A_NORMAL
+C_UNDERLINE = curses.A_UNDERLINE
+C_REVERSE = curses.A_REVERSE

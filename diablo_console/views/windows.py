@@ -33,7 +33,7 @@ class Window:
         self.obj = curses.newwin(self.height, self.width, self.y, self.x)
         self.obj.border(0)
         if self.title:
-            self.obj.addstr(0, 1, '[{}]'.format(self.title[:self.width-4]), C_CYAN)
+            self.obj.addstr(0, 1, '[{}]'.format(self.title[:self.width-4]), C_BOLD | C_UNDERLINE)
         self.obj.refresh()
 
     def destroy(self):
@@ -63,8 +63,18 @@ class Window:
 class ButtonWindow(Window):
     def __init__(self, *args, **kwargs):
         super(ButtonWindow, self).__init__(*args, **kwargs)
-        self.buttons = Area(window=self, align='bottom', size=1)
+        self.button_area = Area(window=self, align='bottom', size=1)
         separator = Separator(self, align='botttom')
+        self.buttons = []
+
+    def add_button(self, button):
+        y = self.height - 2
+        x = 2
+        self.buttons.append(button)
+        for button in self.buttons:
+            offset = button.render(y, x)
+            x += offset + 1
+        self.obj.refresh()
 
 class Area:
     def __init__(self, window, align, size):

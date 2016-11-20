@@ -24,4 +24,5 @@ def setup():
     curses.init_pair(15, curses.COLOR_RED, curses.COLOR_YELLOW)
     curses.init_pair(16, curses.COLOR_YELLOW, curses.COLOR_CYAN)
     curses.init_pair(17, curses.COLOR_WHITE, curses.COLOR_GREEN)
-    curses.init_pair(17, curses.COLOR_WHITE, curses.COLOR_BLUE)
+    curses.init_pair(18, curses.COLOR_WHITE, curses.COLOR_BLUE)
+    curses.init_pair(19, curses.COLOR_WHITE, curses.COLOR_CYAN)

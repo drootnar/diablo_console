@@ -1,6 +1,8 @@
 import curses
 from .views.windows import *
 from .views.board import Canvas
+from .views.buttons import Button
+from .const import *
 
 __all__ = ['GameLoop', 'GameState']
 
@@ -102,6 +104,11 @@ class GameLoop:
                     self.state.focus = GameState.FOCUS_WINDOW
                 elif x == ord('3'):
                     window = ButtonWindow(self.canvas, width=60, height=20, title='ButtonWindow')
+                    window.add_button(Button(window, 'd', 'default'))
+                    window.add_button(Button(window, 'w', 'warning', color=C_WARN))
+                    window.add_button(Button(window, 'd', 'danger', color=C_DANGER))
+                    window.add_button(Button(window, 'i', 'info', color=C_INFO))
+                    window.add_button(Button(window, 'o', 'ok', color=C_OK))
                     self.state.focus = GameState.FOCUS_WINDOW
                 elif x == ord('q'):
                     window = TextWindow(self.canvas, width=20, height=3, text='Dziękuję za grę')
