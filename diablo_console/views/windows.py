@@ -31,6 +31,7 @@ class Window:
         return int((parent_y / 2) - (self.height / 2))
 
     def create(self):
+        self.logger = self.canvas.logger
         self.obj = curses.newwin(self.height, self.width, self.y, self.x)
         self.obj.border(0)
         if self.title:

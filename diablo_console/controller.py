@@ -1,7 +1,7 @@
 import curses
 from .views.windows import *
 from .views.board import Canvas
-from .views.buttons import Button, OKButton
+from .views.buttons import Button, OKButton, LoggerButton
 from .const import *
 
 __all__ = ['GameLoop', 'GameState']
@@ -58,6 +58,7 @@ class GameLoop:
                     window.add_button(Button(window, 'd', 'danger', color=C_DANGER, action='action'))
                     window.add_button(Button(window, 'i', 'info', color=C_INFO, action='action'))
                     window.add_button(OKButton(window))
+                    window.add_button(LoggerButton(window, text='To jest przykładowy log'))
                     self.canvas.set_focus(window)
                 elif x == K_ESCAPE:
                     window = TextWindow(self.canvas, width=30, height=6, title='Zakończenie gry')

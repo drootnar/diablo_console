@@ -1,7 +1,7 @@
 from ..const import C_BUTTON, C_UNDERLINE, C_BOLD
 from ..errors import ViewError
 
-__all__ = ['Button', 'OKButton']
+__all__ = ['Button', 'OKButton', 'LoggerButton']
 
 
 class Button:
@@ -33,13 +33,29 @@ class OKButton(Button):
     '''
     Button with action to close current screen
     '''
-    def __init__(self, window):
+    def __init__(self, window, *args, **kwargs):
         super(OKButton, self).__init__(
             window=window,
             key='o',
             name='OK',
         )
 
-    def action(self, *args, **kwargs):
+    def action(self):
         self.window.destroy()
         self.window.canvas.set_focus(None)
+
+
+class LoggerButton(Button):
+    '''
+    Button with action to log some text in logger
+    '''
+    def __init__(self, window, text, *args, **kwargs):
+        super(LoggerButton, self).__init__(
+            window=window,
+            key='l',
+            name='Logger',
+        )
+        self.text = text
+
+    def action(self):
+        self.window.logger.display(self.text)

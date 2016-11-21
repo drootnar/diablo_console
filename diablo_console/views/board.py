@@ -4,7 +4,7 @@ from .windows import Window
 from ..errors import ViewError
 from ..const import *
 
-__all__ = ['Canvas', 'CanvasWindow']
+__all__ = ['Canvas', 'CanvasWindow', 'LoggerWindow']
 
 
 class Canvas:
@@ -22,7 +22,7 @@ class Canvas:
             raise ViewError('Terminal size too small')
         self.board = CanvasWindow(self, x=0, y=0, width=self.max_x-SIDE_PANEL_WIDTH, height=self.max_y-LOGGER_HEIGHT, title='map')
         self.side = CanvasWindow(self, x=self.max_x-SIDE_PANEL_WIDTH, y=0, width=SIDE_PANEL_WIDTH, height=self.max_y-LOGGER_HEIGHT, title='menu')
-        self.logger = CanvasWindow(self, x=0, y=self.max_y-LOGGER_HEIGHT, width=self.max_x, height=LOGGER_HEIGHT, title='logger')
+        self.logger = LoggerWindow(self, x=0, y=self.max_y-LOGGER_HEIGHT, width=self.max_x, height=LOGGER_HEIGHT, title='logger')
         self.focus = None
 
     def set_focus(self, window):
@@ -56,4 +56,16 @@ class CanvasWindow(Window):
         self.obj.border(0)
         if self.title:
             self.obj.addstr(0, 1, '[{}]'.format(self.title[:self.width-4]), C_BOLD | C_UNDERLINE)
+        self.obj.refresh()
+
+
+class LoggerWindow(CanvasWindow):
+    '''
+    Logger Window
+    '''
+    def __init__(self, *args, **kwargs):
+        super(LoggerWindow, self).__init__(*args, **kwargs)
+
+    def display(self, text):
+        self.obj.addnstr(1, 1, text, self.width-2)
         self.obj.refresh()
