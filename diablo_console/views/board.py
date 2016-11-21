@@ -4,7 +4,7 @@ from .windows import Window
 from ..errors import ViewError
 from ..const import *
 
-__all__ = ['Canvas', 'CanvasWindow', 'LoggerWindow']
+__all__ = ['Canvas', 'BoardWindow', 'SidePanelWindow', 'LoggerWindow']
 
 
 class Canvas:
@@ -20,9 +20,15 @@ class Canvas:
         (self.max_y, self.max_x) = self.obj.getmaxyx()
         if self.max_y < 10 or self.max_x < 40:
             raise ViewError('Terminal size too small')
-        self.board = CanvasWindow(self, x=0, y=0, width=self.max_x-SIDE_PANEL_WIDTH, height=self.max_y-LOGGER_HEIGHT, title='map')
-        self.side = CanvasWindow(self, x=self.max_x-SIDE_PANEL_WIDTH, y=0, width=SIDE_PANEL_WIDTH, height=self.max_y-LOGGER_HEIGHT, title='menu')
-        self.logger = LoggerWindow(self, x=0, y=self.max_y-LOGGER_HEIGHT, width=self.max_x, height=LOGGER_HEIGHT, title='logger')
+        self.board = BoardWindow(
+            self, x=0, y=0,
+            width=self.max_x-SIDE_PANEL_WIDTH, height=self.max_y-LOGGER_HEIGHT, title='map')
+        self.side = SidePanelWindow(
+            self, x=self.max_x-SIDE_PANEL_WIDTH, y=0, width=SIDE_PANEL_WIDTH,
+            height=self.max_y-LOGGER_HEIGHT, title='inventory')
+        self.logger = LoggerWindow(
+            self, x=0, y=self.max_y-LOGGER_HEIGHT,
+            width=self.max_x, height=LOGGER_HEIGHT, title='logger')
         self.focus = None
 
     def set_focus(self, window):
@@ -41,15 +47,16 @@ class Canvas:
         curses.endwin()
 
     def render(self, state):
+        self.side.render(state)
         self.board.render(state)
 
 
-class CanvasWindow(Window):
+class BoardWindow(Window):
     '''
-    Board (constant) windows placed on canvas.
+    Board (constant) window placed on canvas.
     '''
     def __init__(self, *args, **kwargs):
-        super(CanvasWindow, self).__init__(*args, **kwargs)
+        super(BoardWindow, self).__init__(*args, **kwargs)
         self.max_x = self.width-3
         self.max_y = self.height-3
 
@@ -73,7 +80,28 @@ class CanvasWindow(Window):
         self.obj.refresh()
 
 
-class LoggerWindow(CanvasWindow):
+class SidePanelWindow(Window):
+    '''
+    SidePanel windows placed on canvas.
+    '''
+    def __init__(self, *args, **kwargs):
+        super(SidePanelWindow, self).__init__(*args, **kwargs)
+        self.max_x = self.width-3
+        self.max_y = self.height-3
+
+    def create(self):
+        self.obj = self.canvas.obj.derwin(self.height, self.width, self.y, self.x)
+        self.obj.border(0)
+        if self.title:
+            self.obj.addstr(0, 1, '[{}]'.format(self.title[:self.width-4]), C_BOLD | C_UNDERLINE)
+        self.obj.refresh()
+
+    def render(self, state):
+        self.obj.addnstr(1, 1, VERSION, 30)
+        self.obj.refresh()
+
+
+class LoggerWindow(BoardWindow):
     '''
     Logger Window
     '''
