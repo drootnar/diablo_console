@@ -27,7 +27,6 @@ class GameLoop:
                 break
             if not focused_window:
                 self.handle_main_screen(x)
-                self.canvas.render(self.state)
             else:
                 self.handle_focus_window(focused_window, x)
         self.canvas.close()
@@ -36,12 +35,16 @@ class GameLoop:
         # moving player
         if x == ord('a'):
             self.state.x = max(self.state.x - 1, 0)
+            self.canvas.render(self.state)
         elif x == ord('d'):
             self.state.x = min(self.state.x + 1, self.canvas.board.max_x)
+            self.canvas.render(self.state)
         elif x == ord('w'):
             self.state.y = max(self.state.y - 1, 0)
+            self.canvas.render(self.state)
         elif x == ord('s'):
             self.state.y = min(self.state.y + 1, self.canvas.board.max_y)
+            self.canvas.render(self.state)
         # other action
         elif x == ord('1'):
             window = Window(self.canvas, width=20, height=8, title='Window')

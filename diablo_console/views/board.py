@@ -69,7 +69,7 @@ class CanvasWindow(Window):
                     break
                 self.obj.addnstr(y+1, x+1, char, 1)
         self.obj.move(state.y+1, state.x+1)
-        self.canvas.logger.display('({},{})'.format(state.x, state.y))
+        self.canvas.logger.coordinate(state.x, state.y)
         self.obj.refresh()
 
 
@@ -80,7 +80,12 @@ class LoggerWindow(CanvasWindow):
     def __init__(self, *args, **kwargs):
         super(LoggerWindow, self).__init__(*args, **kwargs)
 
+    def coordinate(self, x, y):
+        self.obj.addstr(1, 1, " "*10)
+        self.obj.addnstr(1, 1, '({},{})'.format(x, y), 10)
+        self.obj.refresh()
+
     def display(self, text):
-        self.obj.addstr(1, 1, " "*(self.width-2))
-        self.obj.addnstr(1, 1, text, self.width-2)
+        self.obj.addstr(1, 11, " "*(self.width-12))
+        self.obj.addnstr(1, 11, text, self.width-12)
         self.obj.refresh()
