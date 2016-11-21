@@ -8,6 +8,10 @@ __all__ = ['GameLoop', 'GameState']
 
 
 class GameLoop:
+    '''
+    Consist of canvas object (visualization) and state object (state of the app)
+    Expose method run to run gameloop, get pressed key and route to action
+    '''
     def __init__(self):
         self.canvas = Canvas()
         self.state = GameState()
@@ -72,7 +76,9 @@ class GameLoop:
         self.canvas.close()
 
 class GameState:
-
+    '''
+    Simple GameState object
+    '''
     def __init__(self):
         self.x = 0
         self.y = 0

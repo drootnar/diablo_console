@@ -63,6 +63,10 @@ class Window:
 
 
 class ButtonWindow(Window):
+    '''
+    Window with button area at the bottom.
+    Expose method add_button.
+    '''
     def __init__(self, *args, **kwargs):
         super(ButtonWindow, self).__init__(*args, **kwargs)
         self.button_area = Area(window=self, align='bottom', size=1)
@@ -81,12 +85,18 @@ class ButtonWindow(Window):
 
 
 class TextWindow(ButtonWindow):
+    '''
+    Window with text area and button area
+    '''
     def __init__(self, *args, **kwargs):
         super(TextWindow, self).__init__(*args, **kwargs)
         self.text = Area(self, align='up', size=self.height-4)
 
 
 class Area:
+    '''
+    Basic class to define area inside window
+    '''
     def __init__(self, window, align, size):
         self.window = window
         if align == 'up':
@@ -134,6 +144,9 @@ class Area:
 
 
 class Separator:
+    '''
+    Simple seprator object.
+    '''
     def __init__(self, window, align, char=None):
         if char:
             char = char

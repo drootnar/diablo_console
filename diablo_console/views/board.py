@@ -2,24 +2,27 @@ import curses
 
 from .windows import Window
 from ..errors import ViewError
+from ..const import *
 
-__all__ = ['Canvas']
+__all__ = ['Canvas', 'CanvasWindow']
 
 
 class Canvas:
+    '''
+    Basic class determining console screen.
+    Store max_x, max_y of the screen and focused (active) window.
+    '''
     def __init__(self):
-        # SIDE_PANEL_WIDTH = 30
-        # LOGGER_HEIGHT = 3
         self.stack = []
         self.obj = curses.initscr()
         self.obj.keypad(True)
         self.obj.immedok(True)
         (self.max_y, self.max_x) = self.obj.getmaxyx()
-        # if self.max_y < 10 or self.max_x < 40:
-        #     raise ViewError('Terminal size too small')
-        # self.board = Window(self, x=0, y=0, width=self.max_x-SIDE_PANEL_WIDTH, height=self.max_y-LOGGER_HEIGHT, title='map')
-        # self.side = Window(self, x=self.max_x-SIDE_PANEL_WIDTH, y=0, width=SIDE_PANEL_WIDTH, height=self.max_y-LOGGER_HEIGHT, title='menu')
-        # self.logger = Window(self, x=0, y=self.max_y-LOGGER_HEIGHT, width=self.max_x, height=LOGGER_HEIGHT, title='logger')
+        if self.max_y < 10 or self.max_x < 40:
+            raise ViewError('Terminal size too small')
+        self.board = CanvasWindow(self, x=0, y=0, width=self.max_x-SIDE_PANEL_WIDTH, height=self.max_y-LOGGER_HEIGHT, title='map')
+        self.side = CanvasWindow(self, x=self.max_x-SIDE_PANEL_WIDTH, y=0, width=SIDE_PANEL_WIDTH, height=self.max_y-LOGGER_HEIGHT, title='menu')
+        self.logger = CanvasWindow(self, x=0, y=self.max_y-LOGGER_HEIGHT, width=self.max_x, height=LOGGER_HEIGHT, title='logger')
         self.focus = None
 
     def set_focus(self, window):
@@ -39,3 +42,18 @@ class Canvas:
 
     def close(self):
         curses.endwin()
+
+
+class CanvasWindow(Window):
+    '''
+    Board (constant) windows placed on canvas.
+    '''
+    def __init__(self, *args, **kwargs):
+        super(CanvasWindow, self).__init__(*args, **kwargs)
+
+    def create(self):
+        self.obj = self.canvas.obj.derwin(self.height, self.width, self.y, self.x)
+        self.obj.border(0)
+        if self.title:
+            self.obj.addstr(0, 1, '[{}]'.format(self.title[:self.width-4]), C_BOLD | C_UNDERLINE)
+        self.obj.refresh()

@@ -5,6 +5,9 @@ __all__ = ['Button', 'OKButton']
 
 
 class Button:
+    '''
+    Basic button class
+    '''
     def __init__(self, window, key, name, *args, **kwargs):
         self.window = window
         self.key = key
@@ -27,6 +30,9 @@ class Button:
 
 
 class OKButton(Button):
+    '''
+    Button with action to close current screen
+    '''
     def __init__(self, window):
         super(OKButton, self).__init__(
             window=window,
