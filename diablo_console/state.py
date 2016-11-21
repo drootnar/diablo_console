@@ -1,5 +1,7 @@
 import random
 
+from .utils import load_level
+
 __all__ = ['GameState']
 
 
@@ -10,4 +12,4 @@ class GameState:
     def __init__(self):
         self.x = 0
         self.y = 0
-        self.points = [[random.choice(' . *') for i in range(1, 201)] for x in range(1, 101)]
+        self.points = load_level('level1')
