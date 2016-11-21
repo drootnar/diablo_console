@@ -94,6 +94,12 @@ class SidePanelWindow(Window):
         self.stats = Area(self, align='up', size=4)
         self.inv = Area(self, align='up', size=4)
         self.options = Area(self, align='bottom', size=4)
+        self.options.display_lines([
+            '                            ',
+            'C - character    J - journal', 
+            'I - inventory       M - menu',
+            '                            '], 
+            C_WHITE | C_REVERSE)
 
     def create(self):
         self.obj = self.canvas.obj.derwin(self.height, self.width, self.y, self.x)
@@ -109,9 +115,8 @@ class SidePanelWindow(Window):
                 {'left': 'mana', 'right': 100},
                 {'left': 'vitality', 'right': 80}
             ],
-            efect=(C_WHITE, C_CYAN | C_BOLD), offset=15)
+            efect=(C_WHITE, C_RED | C_BOLD), offset=15)
         self.inv.display_lines(['1', '2', '3', '4'])
-        self.options.display_lines(['character', 'inventory', 'journal', 'menu'])
 
 
 class LoggerWindow(BoardWindow):

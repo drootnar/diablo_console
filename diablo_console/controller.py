@@ -47,6 +47,22 @@ class GameLoop:
             self.state.y = min(self.state.y + 1, self.canvas.board.max_y)
             self.canvas.render(self.state)
         # other action
+        elif x == ord('c'):
+            window = ButtonWindow(self.canvas, width=60, height=20, title='Your character')
+            window.add_button(OKButton(window))
+            self.canvas.set_focus(window)
+        elif x == ord('j'):
+            window = ButtonWindow(self.canvas, width=60, height=20, title='Journal')
+            window.add_button(OKButton(window))
+            self.canvas.set_focus(window)
+        elif x == ord('i'):
+            window = ButtonWindow(self.canvas, width=60, height=20, title='Inventory')
+            window.add_button(OKButton(window))
+            self.canvas.set_focus(window)
+        elif x == ord('m'):
+            window = ButtonWindow(self.canvas, width=60, height=20, title='Menu')
+            window.add_button(OKButton(window))
+            self.canvas.set_focus(window)
         elif x == ord('1'):
             window = Window(self.canvas, width=20, height=8, title='Window')
             Area(window, align='up', size=3)
@@ -89,7 +105,7 @@ class GameLoop:
         if chr(x) in focused_window.keys:
             action = focused_window.keys[chr(x)]
             action()
-        elif x == K_ESCAPE:
+        elif x == K_ESCAPE or x == K_ENTER:
             focused_window.destroy()
             self.canvas.set_focus(None)
 

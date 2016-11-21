@@ -1,6 +1,7 @@
 import curses
 
 K_ESCAPE = ord('q')
+K_ENTER = 10
 
 C_RED = curses.color_pair(1)
 C_GREEN = curses.color_pair(2)
