@@ -1,6 +1,6 @@
 import curses
 
-from .windows import Window
+from .windows import Window, Area, Separator
 from ..errors import ViewError
 from ..const import *
 
@@ -88,6 +88,8 @@ class SidePanelWindow(Window):
         super(SidePanelWindow, self).__init__(*args, **kwargs)
         self.max_x = self.width-3
         self.max_y = self.height-3
+        self.title = Area(self, align='up', size=5)
+        Separator(self, align='up')
 
     def create(self):
         self.obj = self.canvas.obj.derwin(self.height, self.width, self.y, self.x)
@@ -97,8 +99,7 @@ class SidePanelWindow(Window):
         self.obj.refresh()
 
     def render(self, state):
-        self.obj.addnstr(1, 1, VERSION, 30)
-        self.obj.refresh()
+        self.title.display_from_file('title', efect=C_RED | C_BOLD)
 
 
 class LoggerWindow(BoardWindow):

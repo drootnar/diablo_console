@@ -143,6 +143,16 @@ class Area:
                 self.obj.addnstr(line_no, 0, text[i:i+self.width], self.width)
         self.obj.refresh()
 
+    def display_from_file(self, file_object, efect=C_WHITE):
+        with open('diablo_console/images/{}.asc'.format(file_object)) as f:
+            for line_no, line in enumerate(f):
+                if line_no == self.height -1:
+                    self.obj.addnstr(line_no, 0, line, self.width-1, efect)
+                    break
+                else:
+                    self.obj.addnstr(line_no, 0, line, self.width-1, efect)
+        self.obj.refresh()
+
 
 class Separator:
     '''

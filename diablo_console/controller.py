@@ -19,6 +19,7 @@ class GameLoop:
 
     def run(self):
         x = None
+        self.canvas.render(self.state)
         while True:
             x = self.canvas.input()
             focused_window = self.canvas.get_focus()
@@ -72,7 +73,7 @@ class GameLoop:
             Separator(window, align='left')
             area2 = Area(window, align="left", size=7)
             area.fill()
-            area2.display('Przykładowy tekst')
+            area2.display('Some text to be displayed')
             self.canvas.set_focus(window)
         elif x == ord('6'):
             window = ButtonWindow(self.canvas, width=60, height=20, title='ButtonWindow')
