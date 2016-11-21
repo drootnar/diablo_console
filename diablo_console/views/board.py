@@ -37,21 +37,11 @@ class Canvas:
     def refresh(self):
         self.obj.refresh()
 
-    def move(self, y, x):
-        self.obj.move(y, x)
-
     def close(self):
         curses.endwin()
 
     def render(self, state):
-        for y, line in enumerate(state.points):
-            if y > self.board.height -3:
-                break
-            for x, char in enumerate(line):
-                if x > self.board.width -3:
-                    break
-                self.board.obj.addnstr(y+1, x+1, char, 1)
-        self.board.obj.refresh()
+        self.board.render(state)
 
 
 class CanvasWindow(Window):
@@ -60,12 +50,26 @@ class CanvasWindow(Window):
     '''
     def __init__(self, *args, **kwargs):
         super(CanvasWindow, self).__init__(*args, **kwargs)
+        self.max_x = self.width-3
+        self.max_y = self.height-3
 
     def create(self):
         self.obj = self.canvas.obj.derwin(self.height, self.width, self.y, self.x)
         self.obj.border(0)
         if self.title:
             self.obj.addstr(0, 1, '[{}]'.format(self.title[:self.width-4]), C_BOLD | C_UNDERLINE)
+        self.obj.refresh()
+
+    def render(self, state):
+        for y, line in enumerate(state.points):
+            if y > self.max_y:
+                break
+            for x, char in enumerate(line):
+                if x > self.max_x:
+                    break
+                self.obj.addnstr(y+1, x+1, char, 1)
+        self.obj.move(state.y+1, state.x+1)
+        self.canvas.logger.display('({},{})'.format(state.x, state.y))
         self.obj.refresh()
 
 
@@ -77,5 +81,6 @@ class LoggerWindow(CanvasWindow):
         super(LoggerWindow, self).__init__(*args, **kwargs)
 
     def display(self, text):
+        self.obj.addstr(1, 1, " "*(self.width-2))
         self.obj.addnstr(1, 1, text, self.width-2)
         self.obj.refresh()

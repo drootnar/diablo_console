@@ -1,5 +1,5 @@
 import curses
-import random
+from .state import GameState
 from .views.windows import *
 from .views.board import Canvas
 from .views.buttons import Button, OKButton, LoggerButton
@@ -21,28 +21,27 @@ class GameLoop:
         x = None
         while True:
             x = self.canvas.input()
-            self.canvas.render(self.state)
             focused_window = self.canvas.get_focus()
             if not focused_window and x == K_ESCAPE:
                 self.handle_exit()
                 break
             if not focused_window:
                 self.handle_main_screen(x)
+                self.canvas.render(self.state)
             else:
                 self.handle_focus_window(focused_window, x)
-            self.canvas.move(1, 1)
         self.canvas.close()
 
     def handle_main_screen(self, x):
         # moving player
         if x == ord('a'):
-            pass
+            self.state.x = max(self.state.x - 1, 0)
         elif x == ord('d'):
-            pass
+            self.state.x = min(self.state.x + 1, self.canvas.board.max_x)
         elif x == ord('w'):
-            pass
+            self.state.y = max(self.state.y - 1, 0)
         elif x == ord('s'):
-            pass
+            self.state.y = min(self.state.y + 1, self.canvas.board.max_y)
         # other action
         elif x == ord('1'):
             window = Window(self.canvas, width=20, height=8, title='Window')
@@ -96,12 +95,4 @@ class GameLoop:
         window.add_button(OKButton(window))
         window.text.display('Granie zostanie ukończone.  Utracisz wszystkie postępy.')
 
-class GameState:
-    '''
-    Simple GameState object
-    '''
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.points = [[random.choice(' . *') for i in range(1, 201)] for x in range(1, 101)]
         
