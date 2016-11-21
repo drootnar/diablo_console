@@ -117,9 +117,10 @@ class GameLoop:
         if new_place.enterable:
             self.state.x = new_x
             self.state.y = new_y
+            self.canvas.logger.display(new_place.description)
             self.canvas.render(self.state)
         else:
-            self.canvas.logger.display("You can't enter on {}".format(new_place.name))
+            self.canvas.logger.display("You can't enter on {}".format(new_place.name), C_YELLOW)
 
 
     def handle_exit(self):

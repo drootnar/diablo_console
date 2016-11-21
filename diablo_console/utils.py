@@ -1,4 +1,4 @@
-from .places import terrains
+from .places import places
 
 __all__ = ['load_level']
 
@@ -12,6 +12,6 @@ def load_level(file_object):
             level_x = max(level_x, len(line)-1)
             row = []
             for point in line[0:-1]:   # skip CR
-                row.append(terrains[point])
+                row.append(places[point])
             points.append(row)
     return points, level_x, level_y

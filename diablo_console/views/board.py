@@ -141,7 +141,7 @@ class LoggerWindow(BoardWindow):
         self.obj.addnstr(1, 1, '({},{})'.format(x, y), 10)
         self.obj.refresh()
 
-    def display(self, text):
+    def display(self, text, efect=C_WHITE):
         self.obj.addstr(1, 11, " "*(self.width-12))
-        self.obj.addnstr(1, 11, text, self.width-12)
+        self.obj.addnstr(1, 11, text, self.width-12, efect)
         self.obj.refresh()

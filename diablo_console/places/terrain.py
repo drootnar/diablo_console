@@ -1,12 +1,12 @@
 from ..const import *
 
-__all__ = ['Place', 'Lake', 'Ocean', 'Dirt']
+__all__ = ['Lake', 'Ocean', 'Dirt', 'Forest', 'Mountain', 'MountainPeak', 'Grass']
 
-class Place:
-    pass
+class Terrain:
+    type = 'terrain'
 
 
-class Lake(Place):
+class Lake(Terrain):
     name = 'lake'
     key = 'w'
     description = 'There is a lake over there'
@@ -14,7 +14,7 @@ class Lake(Place):
     enterable = False
 
 
-class Ocean(Place):
+class Ocean(Terrain):
     name = 'ocean'
     key = 'W'
     description = 'Swim swim swim. Cannot...'
@@ -22,9 +22,41 @@ class Ocean(Place):
     enterable = False
 
 
-class Dirt(Place):
+class Dirt(Terrain):
     name = 'dirt'
     key = ' '
     description = 'Just dirt'
     efect = C_WHITE
+    enterable = True
+
+
+class Forest(Terrain):
+    name = 'forest'
+    key = 'f'
+    description = 'You see small forest'
+    efect = C_FILL_GREEN
+    enterable = True
+
+
+class Mountain(Terrain):
+    name = 'mountain'
+    key = '^'
+    description = 'Mountains begin'
+    efect = C_WHITE
+    enterable = False
+
+
+class MountainPeak(Terrain):
+    name = 'mountain peak'
+    key = '!'
+    description = 'Here is a mountain peak'
+    efect = C_FILL_WHITE
+    enterable = False
+
+
+class Grass(Terrain):
+    name = 'grass'
+    key = '.'
+    description = 'You are walking through the grass carpet.'
+    efect = C_GREEN
     enterable = True

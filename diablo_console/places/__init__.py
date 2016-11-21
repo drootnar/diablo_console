@@ -1,7 +1,11 @@
 from .terrain import *
 
-terrains = {
+places = {
 	'w': Lake,
 	'W': Ocean,
-	'.': Dirt
+	'.': Dirt,
+	'f': Forest,
+	'^': Mountain,
+	'!': MountainPeak,
+	'g': Grass
 }
