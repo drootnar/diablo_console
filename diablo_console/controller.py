@@ -34,18 +34,8 @@ class GameLoop:
 
     def handle_main_screen(self, x):
         # moving player
-        if x == ord('a'):
-            self.state.x = max(self.state.x - 1, 0)
-            self.canvas.render(self.state)
-        elif x == ord('d'):
-            self.state.x = min(self.state.x + 1, self.state.level_x-1)
-            self.canvas.render(self.state)
-        elif x == ord('w'):
-            self.state.y = max(self.state.y - 1, 0)
-            self.canvas.render(self.state)
-        elif x == ord('s'):
-            self.state.y = min(self.state.y + 1, self.state.level_y-1)
-            self.canvas.render(self.state)
+        if x in [ord('a'), ord('d'), ord('w'), ord('s')]:
+            self.handle_player_move(x)
         # other action
         elif x == ord('c'):
             window = ButtonWindow(self.canvas, width=60, height=20, title='Your character')
@@ -109,6 +99,28 @@ class GameLoop:
             focused_window.destroy()
             self.canvas.set_focus(None)
             self.canvas.render(self.state)
+
+    def handle_player_move(self, x):
+        if x == ord('a'):
+            new_x = max(self.state.x - 1, 0)
+            new_y = self.state.y
+        elif x == ord('d'):
+            new_x = min(self.state.x + 1, self.state.level_x-1)
+            new_y = self.state.y
+        elif x == ord('w'):
+            new_x = self.state.x
+            new_y = max(self.state.y - 1, 0)
+        elif x == ord('s'):
+            new_x = self.state.x
+            new_y = min(self.state.y + 1, self.state.level_y-1)
+        new_place = self.state.points[new_y][new_x]
+        if new_place.enterable:
+            self.state.x = new_x
+            self.state.y = new_y
+            self.canvas.render(self.state)
+        else:
+            self.canvas.logger.display("You can't enter on {}".format(new_place.name))
+
 
     def handle_exit(self):
         window = TextWindow(self.canvas, width=30, height=6, title='Zakończenie gry')
