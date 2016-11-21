@@ -19,6 +19,7 @@ class Window:
         self.y = kwargs.get('y', self._center_y())
         self.free_space = {'min_x': 1, 'min_y': 1, 'max_x': self.width-2, 'max_y': self.height-2}
         self.title = kwargs.get('title')
+        self.keys = {}
         self.create()
 
     def _center_x(self):
@@ -37,7 +38,8 @@ class Window:
         self.obj.refresh()
 
     def destroy(self):
-        self.obj.erase()
+        del self.obj
+        self.canvas.obj.touchwin()
         self.canvas.refresh()
 
     def fill(self):
@@ -71,6 +73,7 @@ class ButtonWindow(Window):
         y = self.height - 2
         x = 2
         self.buttons.append(button)
+        self.keys[button.key] = button.action
         for button in self.buttons:
             offset = button.render(y, x)
             x += offset + 1

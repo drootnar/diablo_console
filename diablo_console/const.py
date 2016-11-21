@@ -1,7 +1,6 @@
 import curses
 
-F_MAP = 'map'
-F_WINDOW = 'window'
+K_ESCAPE = ord('q')
 
 C_RED = curses.color_pair(1)
 C_GREEN = curses.color_pair(2)
