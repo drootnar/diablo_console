@@ -43,6 +43,16 @@ class Canvas:
     def close(self):
         curses.endwin()
 
+    def render(self, state):
+        for y, line in enumerate(state.points):
+            if y > self.board.height -3:
+                break
+            for x, char in enumerate(line):
+                if x > self.board.width -3:
+                    break
+                self.board.obj.addnstr(y+1, x+1, char, 1)
+        self.board.obj.refresh()
+
 
 class CanvasWindow(Window):
     '''
