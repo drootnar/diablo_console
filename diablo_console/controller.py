@@ -15,7 +15,7 @@ class GameLoop:
     '''
     def __init__(self):
         self.canvas = Canvas()
-        self.state = GameState()
+        self.state = GameState(self.canvas)
 
     def run(self):
         x = None
@@ -38,13 +38,13 @@ class GameLoop:
             self.state.x = max(self.state.x - 1, 0)
             self.canvas.render(self.state)
         elif x == ord('d'):
-            self.state.x = min(self.state.x + 1, self.canvas.board.max_x)
+            self.state.x = min(self.state.x + 1, self.state.level_x-1)
             self.canvas.render(self.state)
         elif x == ord('w'):
             self.state.y = max(self.state.y - 1, 0)
             self.canvas.render(self.state)
         elif x == ord('s'):
-            self.state.y = min(self.state.y + 1, self.canvas.board.max_y)
+            self.state.y = min(self.state.y + 1, self.state.level_y-1)
             self.canvas.render(self.state)
         # other action
         elif x == ord('c'):
@@ -108,6 +108,7 @@ class GameLoop:
         elif x == K_ESCAPE or x == K_ENTER:
             focused_window.destroy()
             self.canvas.set_focus(None)
+            self.canvas.render(self.state)
 
     def handle_exit(self):
         window = TextWindow(self.canvas, width=30, height=6, title='Zakończenie gry')

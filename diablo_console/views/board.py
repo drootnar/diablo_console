@@ -1,4 +1,5 @@
 import curses
+import math
 
 from .windows import Window, Area, Separator
 from ..errors import ViewError
@@ -68,14 +69,17 @@ class BoardWindow(Window):
         self.obj.refresh()
 
     def render(self, state):
-        for y, line in enumerate(state.points):
-            if y > self.max_y:
-                break
-            for x, char in enumerate(line):
-                if x > self.max_x:
-                    break
+        screen_x = max(0, state.x - math.floor(0.5 * state.screen_width))
+        if screen_x + state.screen_width >= state.level_x:
+            screen_x = state.level_x - state.screen_width
+        screen_y = max(0, state.y - math.floor(0.5 * state.screen_height))
+        if screen_y + state.screen_height >= state.level_y:
+            screen_y = state.level_y - state.screen_height
+        # self.canvas.logger.display('{} {} {} {}'.format(screen_x, screen_y, screen_x+state.screen_width, screen_y+state.screen_height))
+        for y, line in enumerate(state.points[screen_y:screen_y+state.screen_height]):
+            for x, char in enumerate(line[screen_x:screen_x+state.screen_width]):
                 self.obj.addnstr(y+1, x+1, char, 1)
-        self.obj.move(state.y+1, state.x+1)
+        self.obj.move(state.y+1-screen_y, state.x+1-screen_x)
         self.canvas.logger.coordinate(state.x, state.y)
         self.obj.refresh()
 
