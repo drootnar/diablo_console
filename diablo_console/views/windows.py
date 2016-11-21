@@ -143,6 +143,39 @@ class Area:
                 self.obj.addnstr(line_no, 0, text[i:i+self.width], self.width)
         self.obj.refresh()
 
+    def display_lines(self, text_lines=None, efect=C_WHITE):
+        if text_lines:
+            for line_no, line in enumerate(text_lines):
+                if line_no == self.height -1:
+                    self.obj.addnstr(line_no, 0, str(line), self.width-1, efect)
+                    break
+                else:
+                    self.obj.addnstr(line_no, 0, str(line), self.width-1, efect)
+        self.obj.refresh()
+
+    def display_table(self, data, offset=None, efect=None):
+        if isinstance(efect, tuple):
+            left_efect = efect[0]
+            right_efect = efect[1]
+        elif isinstance(efect, int):
+            left_efect = efect
+            right_efect = efect
+        else:
+            left_efect = C_WHITE
+            right_efect = C_WHITE
+
+        if not offset:
+            offset = max([len(row['left']) for row in data]) + 1
+        for line_no, row in enumerate(data):
+            if line_no == self.height -1:
+                self.obj.addnstr(line_no, 0, str(row['left']), offset, left_efect)
+                self.obj.addnstr(line_no, offset, str(row['right']), self.width - offset, right_efect)
+                break
+            else:
+                self.obj.addnstr(line_no, 0, str(row['left']), offset, left_efect)
+                self.obj.addnstr(line_no, offset, str(row['right']), self.width - offset, right_efect)
+        self.obj.refresh()
+
     def display_from_file(self, file_object, efect=C_WHITE):
         with open('diablo_console/images/{}.asc'.format(file_object)) as f:
             for line_no, line in enumerate(f):

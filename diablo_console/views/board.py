@@ -18,7 +18,7 @@ class Canvas:
         self.obj.keypad(True)
         self.obj.immedok(True)
         (self.max_y, self.max_x) = self.obj.getmaxyx()
-        if self.max_y < 10 or self.max_x < 40:
+        if self.max_y < TERMINAL_MIN_Y or self.max_x < TERMINAL_MIN_X:
             raise ViewError('Terminal size too small')
         self.board = BoardWindow(
             self, x=0, y=0,
@@ -89,7 +89,11 @@ class SidePanelWindow(Window):
         self.max_x = self.width-3
         self.max_y = self.height-3
         self.title = Area(self, align='up', size=5)
+        self.title.display_from_file('title', efect=C_RED | C_BOLD)
         Separator(self, align='up')
+        self.stats = Area(self, align='up', size=4)
+        self.inv = Area(self, align='up', size=4)
+        self.options = Area(self, align='bottom', size=4)
 
     def create(self):
         self.obj = self.canvas.obj.derwin(self.height, self.width, self.y, self.x)
@@ -99,7 +103,15 @@ class SidePanelWindow(Window):
         self.obj.refresh()
 
     def render(self, state):
-        self.title.display_from_file('title', efect=C_RED | C_BOLD)
+        self.stats.display_table(
+            [
+                {'left': 'stregnth', 'right': 50},
+                {'left': 'mana', 'right': 100},
+                {'left': 'vitality', 'right': 80}
+            ],
+            efect=(C_WHITE, C_CYAN | C_BOLD), offset=15)
+        self.inv.display_lines(['1', '2', '3', '4'])
+        self.options.display_lines(['character', 'inventory', 'journal', 'menu'])
 
 
 class LoggerWindow(BoardWindow):
