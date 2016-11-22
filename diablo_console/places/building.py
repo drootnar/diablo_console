@@ -12,7 +12,8 @@ class Building(Place):
 
 class RoofLeft(Building):
     name = 'roof'
-    key = '/'
+    input_key = '/'
+    output_key = '/'
     description = 'That is a roof'
     efect = C_MAGENTA
     enterable = False
@@ -20,7 +21,8 @@ class RoofLeft(Building):
 
 class RoofRight(Building):
     name = 'roof'
-    key = '\\'
+    input_key = '\\'
+    output_key = '\\'
     description = 'That is a roof'
     efect = C_MAGENTA
     enterable = False
@@ -34,56 +36,69 @@ class House(Building):
 
 
 class HouseVert(House):
-    key = '┃'
+    input_key = '┃'
+    output_key = '┃'
     
 
 class HouseHor(House):
-    key = '━'
+    input_key = '━'
+    output_key = '━'
 
 
 class HouseBottomMiddle(House):
-    key = '┻'
+    input_key = '━'
+    output_key = '━'
 
 
 class HouseUpMiddle(House):
-    key = '┳'
-
+    input_key = '┳'
+    output_key = '┳'
 
 class HouseLeftUp(House):
-    key = '┏'
+    input_key = '┏'
+    output_key = '┏'
 
 
 class HouseLeftBottom(House):
-    key = '┗'
+    input_key = '┗'
+    output_key = '┗'
 
 
 class HouseLeftMiddle(House):
-    key = '┣'
+    input_key = '┣'
+    output_key = '┣'
 
 
 class HouseRightUp(House):
-    key = '┓'
+    input_key = '┓'
+    output_key = '┓'
 
 
 class HouseRightBottom(House):
-    key = '┛'
+    input_key = '┛'
+    output_key = '┛'
 
 
 class HouseRightMiddle(House):
-    key = '┫'
+    input_key = '┫'
+    output_key = '┫'
 
 
 class HouseIntersection(House):
-    key = '╋'
+    input_key = '╋'
+    output_key = '╋'
 
 
 class HouseWall1(House):
-    key = '░'
+    input_key = '░'
+    output_key = '░'
 
 
 class HouseWall2(House):
-    key = '▒'
+    input_key = '▒'
+    output_key = '▒'
 
 
 class HouseWall3(House):
-    key = '▓'
+    input_key = '▓'
+    output_key = '▓'

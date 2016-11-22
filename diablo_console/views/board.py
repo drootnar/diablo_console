@@ -84,7 +84,7 @@ class BoardWindow(Window):
         # self.canvas.logger.display('{} {} {} {}'.format(screen_x, screen_y, screen_x+state.screen_width, screen_y+state.screen_height))
         for y, line in enumerate(state.points[screen_y:screen_y+state.screen_height]):
             for x, point in enumerate(line[screen_x:screen_x+state.screen_width]):
-                self.obj.addnstr(y+1, x+1, point.key, 1, point.efect)
+                self.obj.addnstr(y+1, x+1, point.output_key, 1, point.efect)
         self.obj.move(state.y+1-screen_y, state.x+1-screen_x)
         self.canvas.logger.coordinate(state.x, state.y)
         self.obj.refresh()

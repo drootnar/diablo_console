@@ -13,7 +13,8 @@ class Terrain(Place):
 
 class Lake(Terrain):
     name = 'lake'
-    key = 'w'
+    input_key = 'w'
+    output_key = '.'
     description = 'There is a lake over there'
     efect = C_FILL_CYAN
     enterable = False
@@ -21,7 +22,8 @@ class Lake(Terrain):
 
 class Ocean(Terrain):
     name = 'ocean'
-    key = 'W'
+    input_key = 'W'
+    output_key = '.'
     description = 'Swim swim swim. Cannot...'
     efect = C_FILL_BLUE
     enterable = False
@@ -29,7 +31,8 @@ class Ocean(Terrain):
 
 class Dirt(Terrain):
     name = 'dirt'
-    key = ' '
+    input_key = '.'
+    output_key = ' '
     description = 'Just dirt'
     efect = C_WHITE
     enterable = True
@@ -37,7 +40,8 @@ class Dirt(Terrain):
 
 class Forest(Terrain):
     name = 'forest'
-    key = 'f'
+    input_key = 'f'
+    output_key = 'f'
     description = 'You see small forest'
     efect = C_FILL_GREEN
     enterable = True
@@ -45,7 +49,8 @@ class Forest(Terrain):
 
 class Mountain(Terrain):
     name = 'mountain'
-    key = '^'
+    input_key = '^'
+    output_key = '^'
     description = 'Mountains begin'
     efect = C_WHITE
     enterable = False
@@ -53,7 +58,8 @@ class Mountain(Terrain):
 
 class MountainPeak(Terrain):
     name = 'mountain peak'
-    key = '!'
+    input_key = '!'
+    output_key = '!'
     description = 'Here is a mountain peak'
     efect = C_FILL_WHITE
     enterable = False
@@ -61,7 +67,8 @@ class MountainPeak(Terrain):
 
 class Grass(Terrain):
     name = 'grass'
-    key = '.'
+    input_key = 'g'
+    output_key = '.'
     description = 'You are walking through the grass carpet.'
     efect = C_GREEN
     enterable = True
