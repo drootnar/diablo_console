@@ -11,7 +11,8 @@ def load_level(file_object):
             level_y += 1
             level_x = max(level_x, len(line)-1)
             row = []
-            for point in line[0:-1]:   # skip CR
-                row.append(places[point])
+            for point in line:
+                if ord(point) != 10:
+                    row.append(places[point])
             points.append(row)
     return points, level_x, level_y
