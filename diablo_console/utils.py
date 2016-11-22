@@ -1,4 +1,4 @@
-from .places import places
+from .places import autodiscover_places
 
 __all__ = ['load_level']
 
@@ -6,6 +6,7 @@ def load_level(file_object):
     points = []
     level_x = 0
     level_y = 0
+    places = autodiscover_places()
     with open('diablo_console/images/{}.asc'.format(file_object)) as f:
         for line in f:
             level_y += 1

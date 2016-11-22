@@ -1,28 +1,15 @@
+import sys, inspect
+
 from .terrain import *
 from .building import *
 
-places = {
-    'w': Lake,
-    'W': Ocean,
-    '.': Dirt,
-    'f': Forest,
-    '^': Mountain,
-    '!': MountainPeak,
-    'g': Grass,
-    '/': RoofLeft,
-    '\\': RoofRight,
-    '┃': HouseVert,
-    '━': HouseHor,
-    '┻': HouseBottomMiddle,
-    '┳': HouseUpMiddle,
-    '┏': HouseLeftUp,
-    '┗': HouseLeftBottom,
-    '┣': HouseLeftMiddle,
-    '┓': HouseRightUp,
-    '┛': HouseRightBottom,
-    '┫': HouseRightMiddle,
-    '╋': HouseIntersection,
-    '░': HouseWall1,
-    '▒': HouseWall2,
-    '▓': HouseWall3
-}
+
+__all__ = ['autodiscover_places']
+
+
+def autodiscover_places():
+    places = {}
+    for name, obj in inspect.getmembers(sys.modules[__name__]):
+        if inspect.isclass(obj) and issubclass(obj, terrain.Place):
+            places[obj.key] = obj
+    return places

@@ -2,7 +2,12 @@ from ..const import *
 
 __all__ = ['Lake', 'Ocean', 'Dirt', 'Forest', 'Mountain', 'MountainPeak', 'Grass']
 
-class Terrain:
+
+class Place:
+    pass
+
+
+class Terrain(Place):
     type = 'terrain'
 
 

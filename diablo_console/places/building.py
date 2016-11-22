@@ -1,11 +1,12 @@
 from ..const import *
+from .terrain import Place
 
 __all__ = [
     'RoofLeft', 'RoofRight', 'HouseVert', 'HouseHor', 'HouseBottomMiddle', 'HouseUpMiddle',
     'HouseLeftUp', 'HouseLeftBottom', 'HouseLeftMiddle', 'HouseRightUp', 'HouseRightBottom',
     'HouseRightMiddle', 'HouseIntersection', 'HouseWall1', 'HouseWall2', 'HouseWall3']
 
-class Building:
+class Building(Place):
     type = 'building'
 
 
